@@ -1,4 +1,3 @@
-ARBORTAG APP FRONTEND DOCUMENTATION
 DetectedTagScreen
 Functionality: After the user selects a tree species and captures or enters the necessary geographical data (latitude, longitude, height, and width), they can save this data.
 User Interaction: On clicking the "Save" button, the user is alerted that the data has been saved successfully. The alert provides two options:
