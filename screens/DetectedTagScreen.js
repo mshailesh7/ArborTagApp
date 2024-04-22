@@ -390,7 +390,7 @@ const DetectedTagScreen = () => {
       "Save Successful",
       "Your data has been saved successfully.",
       [
-        { text: "Continue", onPress: () => navigation.navigate('LocationInputScreen') },
+        { text: "Continue", onPress: () => navigation.navigate('Camera') },
         { text: "Stop", onPress: () => navigation.navigate('Menu'), style: "cancel" },
       ],
       { cancelable: false }
