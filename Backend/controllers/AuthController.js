@@ -174,27 +174,25 @@ exports.resetPassword = async (req, res) => {
   if (!user) 
   return res.json({
     success: false,
-    message: "Password reset unsuccessfully"
+    message: "Invalid user"
   });
 
   const token = await ResetToken.findOne({ owner: user._id });
+  console.log(token);
   if (!token) 
   return res.json({
     success: false,
-    message: "Password reset unsuccessfully"
+    message: "Invalid Token"
   });
 
-  const isMatched = await token.compareToken(otp);
-  if (!isMatched) 
-  return res.json({
-    success: false,
-    message: "Password reset unsuccessfully"
-  });
-
+  if(token.token !== otp)
+  return sendError(res, "Otp Dont match");
+  
+ 
   if (newPassword.trim().length < 8 || newPassword.trim().length > 20)
   return res.json({
     success: false,
-    message: "Password reset unsuccessfully"
+    message: "Password length erroe"
   });
 
   user.password = newPassword.trim();

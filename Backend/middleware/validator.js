@@ -43,3 +43,16 @@ exports.validate = (req, res, next) => {
     errors: extractedErrors
   });
 };
+
+exports.validatePass= [
+  check("newPassword")
+    .trim()
+    .not()
+    .isEmpty()
+    .withMessage("Password is Missing")
+    .isLength({ min: 8, max: 20 })
+    .withMessage("Password must be 8 to 20 characters long!")
+    .matches(/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
+    .withMessage("Password must contain at least one uppercase letter, one number, one special character, and be at least 8 characters long!"),
+]
+

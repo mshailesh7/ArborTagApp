@@ -14,26 +14,13 @@ const resetTokenSchema = new Schema({
   },
   createdAt: {
     type: Date,
-    expires: 120,
+    expires: 300,
     default: Date.now()
   }
 });
 
-resetTokenSchema.pre("save", async function (next) {
-  if (this.isModified("token")) {
-    const hash = await bcrypt.hash(this.token, 8);
-    this.token = hash;
-  }
-  next();
-});
 
-resetTokenSchema.methods.compareToken = async function (token) {
-  try {
-    const result = await bcrypt.compare(token, this.token);
-    return result;
-  } catch (error) {
-    throw new Error(error);
-  }
-};
+
+
 
 module.exports = mongoose.model("ResetToken", resetTokenSchema);

@@ -5,7 +5,7 @@
 1. nodemon app.js
 
 # Active Error:-  
-1. password reset
+1. password reset- -> marked Solved By harsh
 
 # config :-
  1. add the .env file to backend

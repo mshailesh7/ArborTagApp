@@ -39,10 +39,7 @@ export const ResetPasswordScreen = ({route, navigation }) => {
     },
     body: JSON.stringify({otp:otp, newPassword:newPassword,id:id})
   }
-).then((response) =>{
-  console.log(response.json())
-  return response.json()
-})
+).then((response) => response.json())
   .then((data)=>{
     console.log(data,"1");
     if(data.success){
@@ -52,17 +49,14 @@ export const ResetPasswordScreen = ({route, navigation }) => {
         routes: [{ name: 'Login' }],
       });
     }else{
-      Alert.alert('Error', data.error);
+      Alert.alert('Error1', data.error);
     }
   })
-   .catch((error)=> {
-     console.error(error);
-     Alert.alert('Error', error);
-   });
+   
     }
     catch(err){
       console.error(err);
-      Alert.alert('Error', err);
+      Alert.alert('Error3', err);
     }
   
 
