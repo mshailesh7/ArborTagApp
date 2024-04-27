@@ -17,7 +17,7 @@ export const ForgotPasswordScreen = ({ navigation }) => {
       return;
     }
     try{
-      await fetch("http://192.168.1.11:3000/api/user/forgot-password",{
+      await fetch("http://192.168.1.11:3000/api/v1/auth/forgot-password",{
         method: 'POST',
         headers: {
           Accept: 'application/json',

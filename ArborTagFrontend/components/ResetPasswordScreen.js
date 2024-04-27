@@ -31,7 +31,7 @@ export const ResetPasswordScreen = ({route, navigation }) => {
     
     try{
       console.log('-1')
-  await fetch("http://192.168.1.11:3000/api/user/reset-password",{
+  await fetch("http://192.168.1.11:3000/api/v1/auth/reset-password",{
     method: 'POST',
     headers: {
       Accept: 'application/json',
