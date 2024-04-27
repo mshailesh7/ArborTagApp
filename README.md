@@ -12,9 +12,9 @@
  2. change the Fetch IP addresses in frontend At All files
     
 # structre OF .env
-  JWT_SECRET = 
-  MAILTRAP_USERNAME =
-  MAILTRAP_PASSWORD =
+  1. JWT_SECRET = 
+  2. MAILTRAP_USERNAME =
+  3. MAILTRAP_PASSWORD =
 
 
 
