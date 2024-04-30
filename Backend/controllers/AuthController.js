@@ -169,7 +169,8 @@ exports.forgotPassword = async (req, res) => {
 }
 
 exports.resetPassword = async (req, res) => {
-  const { otp, newPassword,id } = req.body;
+  const { otp, newPassword } = req.body;
+  const id=req.headers['token']
   const user = await User.findById(id);
   if (!user) 
   return res.json({

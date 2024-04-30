@@ -35,9 +35,10 @@ export const ResetPasswordScreen = ({route, navigation }) => {
     method: 'POST',
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      token: id
     },
-    body: JSON.stringify({otp:otp, newPassword:newPassword,id:id})
+    body: JSON.stringify({otp:otp , newPassword:newPassword})
   }
 ).then((response) => response.json())
   .then((data)=>{
