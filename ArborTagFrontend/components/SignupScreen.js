@@ -66,7 +66,7 @@ export const SignupScreen = ({ navigation }) => {
 
 
     try {
-      await fetch("http://192.168.1.11:3000/api/v1/auth/create", {
+      await fetch("http://192.168.0.165:3000/api/v1/auth/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -109,7 +109,7 @@ export const SignupScreen = ({ navigation }) => {
     console.log("1");
     try{
       console.log("2")
-      await fetch(`http://192.168.1.11:3000/api/v1/auth/verify-email`, {
+      await fetch(`http://192.168.0.165:3000/api/v1/auth/verify-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { createUser, signin, verifyemail, forgotPassword, resetPassword } = require('../controllers/authController')
+const { createUser, signin, verifyemail, forgotPassword, resetPassword } = require('../controllers/AuthController')
 
 const { validateUser, validate,validatePass } = require('../middleware/validator')
 
