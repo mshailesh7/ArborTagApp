@@ -33,52 +33,6 @@ def plot_points_with_legend(map_obj, data, colormap, column_name):
     legend_html += '</div>'
     map_obj.get_root().html.add_child(folium.Element(legend_html))
 
-# # Load the dataset
-# file_path = './pyscripts/gps_test_gabgal.csv'  # Replace with your dataset file path
-# data = pd.read_csv(file_path)
-
-# # Create a color map
-# unique_scientific_names = data['scientific_name'].unique()
-# scientific_name_colormap = create_colormap(unique_scientific_names)
-
-# # Create the map centered around the average coordinates with a higher zoom level
-# map_center = [data['lat'].mean(), data['long'].mean()]
-# map_with_points = folium.Map(location=map_center, zoom_start=120)  # Increased zoom level
-
-# # Plot points with a legend
-# plot_points_with_legend(map_with_points, data, scientific_name_colormap, "scientific_name")
-
-# # Save the map as HTML
-# html_path = './pyscripts/diversity.html'
-# map_with_points.save(html_path)
-
-# # Set up Selenium WebDriver for Chromium
-# options = webdriver.ChromeOptions()
-# options.add_argument('--headless')  # Run Chromium in headless mode (without a UI)
-# options.add_argument('--disable-gpu')  # Disable GPU hardware acceleration
-# options.add_argument('--window-size=2180x2180')  # Specify window size
-
-# driver = webdriver.Chrome(options=options)
-
-# # Load the HTML file
-# full_html_path = 'file://' + os.path.abspath(html_path)
-# driver.get(full_html_path)
-
-# # Give it time to render and take a screenshot
-# time.sleep(5)  # Adjust time as needed
-# png_path = './pyscripts/diversity_map.png'
-# driver.save_screenshot(png_path)
-
-# # Close the browser
-# driver.quit()
-
-# Add copyright text to the image
-# image = Image.open(png_path)
-# draw = ImageDraw.Draw(image)
-# font = ImageFont.truetype("arial.ttf", 45)  # Adjust font and size as needed
-# draw.text((image.width - 650, image.height - 80), "©️ NatureMark Systems 2024", fill=(0, 0, 0), font=font)
-# image.save(png_path)
-
 def main(file_path):
     data = pd.read_csv(file_path)
 
@@ -123,6 +77,12 @@ def main(file_path):
     font = ImageFont.truetype("Arial", 45)  # Adjust font and size as needed
     draw.text((image.width - 650, image.height - 80), "©️ NatureMark Systems 2024", fill=(0, 0, 0), font=font)
     image.save(png_path)
+    
+    output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../backend/uploads'))
+    os.makedirs(output_dir, exist_ok=True)
+    # Save the figure as a PNG file
+    output_path = os.path.join(output_dir, 'distribution_map.png')
+    plt.savefig(output_path)
     
 if __name__ == "__main__":
     if len(sys.argv) != 2:

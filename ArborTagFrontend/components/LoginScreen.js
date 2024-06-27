@@ -36,7 +36,7 @@ export const LoginScreen = ({ navigation }) => {
       return;
     }
     try{
-      await fetch('http://192.168.0.165:3000/api/v1/auth/signin', {
+      await fetch('http://192.168.0.104:3000/api/v1/auth/signin', {
         method: 'POST',   
         headers: {
           Accept: 'application/json',
