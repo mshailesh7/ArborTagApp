@@ -44,7 +44,7 @@ const DistributionScreen = () => {
     });
 
     try{
-      const response = await fetch('http://192.168.0.104:3000/api/v1/analysis/upload', {
+      const response = await fetch('http://192.168.0.165:3000/api/v1/analysis/upload', {
         method: 'POST',
         body: formData,
         headers: {
@@ -53,7 +53,7 @@ const DistributionScreen = () => {
       });
 
       if(response.ok){
-        const executeResponse = await fetch('http://192.168.0.104:3000/api/v1/analysis/distributionmap', { method: 'POST', });
+        const executeResponse = await fetch('http://192.168.0.165:3000/api/v1/analysis/distributionmap', { method: 'POST', });
         if(executeResponse.ok){
           const executeData = await executeResponse.json();
           setImageUrl(executeData.imageUrl);

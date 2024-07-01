@@ -48,7 +48,7 @@ def main(file_path):
     plot_points_with_legend(map_with_points, data, scientific_name_colormap, "scientific_name")
 
     # Save the map as HTML
-    html_path = './pyscripts/diversity.html'
+    html_path = '../backend/uploads/distribution.html'
     map_with_points.save(html_path)
 
     # Set up Selenium WebDriver for Chromium
@@ -65,7 +65,7 @@ def main(file_path):
 
     # Give it time to render and take a screenshot
     time.sleep(5)  # Adjust time as needed
-    png_path = './pyscripts/diversity_map.png'
+    png_path = '../backend/uploads/distribution_map.png'
     driver.save_screenshot(png_path)
 
     # Close the browser
@@ -74,15 +74,16 @@ def main(file_path):
     # Add copyright text to the image
     image = Image.open(png_path)
     draw = ImageDraw.Draw(image)
-    font = ImageFont.truetype("Arial", 45)  # Adjust font and size as needed
-    draw.text((image.width - 650, image.height - 80), "©️ NatureMark Systems 2024", fill=(0, 0, 0), font=font)
+    # font = ImageFont.truetype("Arial", 45)  # Adjust font and size as needed
+    draw.text((image.width - 650, image.height - 80), "©️ NatureMark Systems 2024", fill=(0, 0, 0))
     image.save(png_path)
+    # font=font
     
-    output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../backend/uploads'))
-    os.makedirs(output_dir, exist_ok=True)
-    # Save the figure as a PNG file
-    output_path = os.path.join(output_dir, 'distribution_map.png')
-    plt.savefig(output_path)
+    # output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../backend/uploads'))
+    # os.makedirs(output_dir, exist_ok=True)
+    # # Save the figure as a PNG file
+    # output_path = os.path.join(output_dir, 'distribution_map.png')
+    # plt.savefig(output_path)
     
 if __name__ == "__main__":
     if len(sys.argv) != 2:

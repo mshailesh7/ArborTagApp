@@ -25,7 +25,7 @@ exports.averageHeight = async (req, res) => {
         console.log(`child process exited with code ${code}`);
         const imagePath = path.join(__dirname, '../uploads/Tree_height.png');
         if (code === 0 && fs.existsSync(imagePath)) {
-            res.json({ imageUrl: `http://192.168.0.104:3000/uploads/Tree_height.png` });
+            res.json({ imageUrl: `http://192.168.0.165:3000/uploads/Tree_height.png` });
         } else {
             res.status(500).send(`Script executed with code ${code}. Output:\n${output}`);
         }
@@ -83,7 +83,7 @@ exports.distributionMap = async (req, res) => {
         console.log(`child process exited with code ${code}`);
         const imagePath = path.join(__dirname, '../uploads/distribution_map.png');
         if (code === 0 && fs.existsSync(imagePath)) {
-            res.json({ imageUrl: `http://192.168.0.104:3000/uploads/distribution_map.png` });
+            res.json({ imageUrl: `http://192.168.0.165:3000/uploads/distribution_map.png` });
         } else {
             res.status(500).send(`Script executed with code ${code}. Output:\n${output}`);
         }
