@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from pandas.plotting import table
 
 # Load your data
-file_path = './pyscripts/gps_test_gabgal.csv'  # Replace with the path to your CSV file
+file_path = '../backend/uploads/gps_test_gabgal.csv'  # Replace with the path to your CSV file
 data = pd.read_csv(file_path)
 
 # Calculate the most and least abundant scientific names and their counts
@@ -74,7 +74,7 @@ plt.text(0.95, 0.05, '©️ NatureMark Systems 2024',
         transform=fig.transFigure)
 
 
-# Save the figure
-plt.savefig('./pyscripts/summary_table.png', bbox_inches='tight', dpi=300)
-#plt.show()
+# # Save the figure
+# plt.savefig('../backend/uploads/summary_tree.png', bbox_inches='tight', dpi=300)
+# #plt.show()
 

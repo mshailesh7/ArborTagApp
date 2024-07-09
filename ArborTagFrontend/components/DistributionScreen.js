@@ -3,26 +3,26 @@ import tw from 'twrnc';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Text, View,TouchableOpacity, Dimensions, StyleSheet, Image, Linking } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
-
+import * as FileSystem from 'expo-file-system';
+import * as MediaLibrary from 'expo-media-library';
 
 const { width, height } = Dimensions.get('window');
 
 const DistributionScreen = () => {
   const [pickedFileName, setPickedFileName] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
+  const [showButtons, setShowButtons] = useState(true);
 
 
   const pickCsvFile = async () => {
     try {
       const result = await DocumentPicker.getDocumentAsync({
-        // type: 'text/csv',
         copyToCacheDirectory: true,
       });
 
-      console.log('Document Picker Result:', result); // Debugging line
+      console.log('Document Picker Result:', result); 
 
       if (result.type !== 'cancel') {
-        // alert(`Picked file: ${result.name}`);
         setPickedFileName(result);
       }
     } catch (error) {
@@ -44,7 +44,7 @@ const DistributionScreen = () => {
     });
 
     try{
-      const response = await fetch('http://192.168.0.165:3000/api/v1/analysis/upload', {
+      const response = await fetch('http://192.168.0.104:3000/api/v1/analysis/upload', {
         method: 'POST',
         body: formData,
         headers: {
@@ -53,13 +53,13 @@ const DistributionScreen = () => {
       });
 
       if(response.ok){
-        const executeResponse = await fetch('http://192.168.0.165:3000/api/v1/analysis/distributionmap', { method: 'POST', });
+        const executeResponse = await fetch('http://192.168.0.104:3000/api/v1/analysis/pie_distribution', { method: 'POST', });
         if(executeResponse.ok){
           const executeData = await executeResponse.json();
           setImageUrl(executeData.imageUrl);
+          setShowButtons(false);
           alert('Script executed successfully.');
-        }
-        else{
+        } else {
           alert('Script execution failed.');
         }
       }
@@ -72,6 +72,30 @@ const DistributionScreen = () => {
       alert('An error occurred while uploading');
     }
   };
+  const downloadImage = async () => {
+    try {
+      const { status } = await MediaLibrary.requestPermissionsAsync();
+      if (status !== 'granted') {
+        alert('Permission to access media library is required!');
+        return;
+      }
+
+      const downloadResumable = FileSystem.createDownloadResumable(
+        imageUrl,
+        FileSystem.documentDirectory + 'Pie_Distribution.jpg'
+      );
+
+      const { uri } = await downloadResumable.downloadAsync();
+
+      const asset = await MediaLibrary.createAssetAsync(uri);
+      await MediaLibrary.createAlbumAsync('Download', asset, false);
+      alert('Image downloaded successfully!');
+    } catch (error) {
+      console.error('Error downloading image:', error);
+      alert('An error occurred while downloading the image.');
+    }
+  };
+
   return (
     <SafeAreaView style={tw`flex-1 mx-4`}>
     <View style={tw`flex-1 justify-around`}>
@@ -81,21 +105,25 @@ const DistributionScreen = () => {
         </Text>
         <Text style={tw`text-lg text-center font-semibold text-gray-700 px-4`}>
         This is a piechart that depicts a detailed breakdown of all the species in the dataset and their total percentage. Each colour in the chart represents its corresponding species in the figure legend. The percentage values show how much of the total that specific species takes up on the pie. The most abundant and the least abundant species are also depicted.        </Text>
-        <TouchableOpacity onPress={pickCsvFile} accessibilityLabel="select-csv-file" style={tw`mt-8 py-2 px-4 self-center bg-blue-500 rounded-full`}>
-          <Text style={tw`text-lg text-white font-bold`}>
-            Select CSV File
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity onPress={submitData} style={tw`py-3 bg-green-600 rounded-md mx-4 mb-6`}>
-        <Text style={tw`text-xl font-bold text-center text-white`}>
-          Submit Data
-        </Text>
-      </TouchableOpacity>
+        {showButtons && (
+            <TouchableOpacity onPress={pickCsvFile} accessibilityLabel="select-csv-file" style={tw`mt-8 py-2 px-4 self-center bg-blue-500 rounded-full`}>
+              <Text style={tw`text-lg text-white font-bold`}>
+                Select CSV File
+              </Text>
+            </TouchableOpacity>
+          )}
+        </View>
+        {showButtons && (
+          <TouchableOpacity onPress={submitData} style={tw`py-3 bg-green-600 rounded-md mx-4 mb-6`}>
+            <Text style={tw`text-xl font-bold text-center text-white`}>
+              Submit Data
+            </Text>
+          </TouchableOpacity>
+        )}
       {imageUrl && (
           <View style={tw`mt-4 items-center`}>
             <Image source={{ uri: imageUrl }} style={{ width: width - 40, height: 300, resizeMode: 'contain' }} />
-            <TouchableOpacity onPress={() => Linking.openURL(imageUrl)} style={tw`mt-2 py-2 px-4 self-center bg-blue-500 rounded-full`}>
+            <TouchableOpacity onPress={downloadImage} style={tw`mt-2 py-2 px-4 self-center bg-blue-500 rounded-full`}>
               <Text style={tw`text-lg text-white font-bold`}>
                 Download Image
               </Text>

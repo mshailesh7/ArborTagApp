@@ -48,7 +48,7 @@ def main(file_path):
     plot_points_with_legend(map_with_points, data, scientific_name_colormap, "scientific_name")
 
     # Save the map as HTML
-    html_path = '../backend/uploads/distribution.html'
+    html_path = '../backend/uploads/diversity.html'
     map_with_points.save(html_path)
 
     # Set up Selenium WebDriver for Chromium
@@ -65,7 +65,7 @@ def main(file_path):
 
     # Give it time to render and take a screenshot
     time.sleep(5)  # Adjust time as needed
-    png_path = '../backend/uploads/distribution_map.png'
+    png_path = '../backend/uploads/diversity_map.png'
     driver.save_screenshot(png_path)
 
     # Close the browser

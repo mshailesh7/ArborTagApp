@@ -4,7 +4,7 @@ from matplotlib.patches import Circle
 from PIL import Image, ImageDraw, ImageFont
 
 # Load your data
-data = pd.read_csv('./gps_test_gabgal.csv')  # Replace with the path to your CSV file
+data = pd.read_csv('../backend/uploads/gps_test_gabgal.csv')  # Replace with the path to your CSV file
 
 # Data analysis
 value_counts = data['scientific_name'].value_counts()
@@ -65,7 +65,7 @@ print(f"Total carbon sequestered by all species: {total_carbon_seq} units")
 def add_line_breaks(text):
     return text.replace(' ', '\n')
 
-image_path = './SummaryConceptNMS.jpeg'
+image_path = '../backend/uploads/SummaryConceptNMS.jpeg'
 image = Image.open(image_path)
 
 # Prepare to draw on the image
@@ -124,7 +124,6 @@ for text, coord in coordinates.items():
 
 
 # Save the edited image
-edited_image_path = './edited_SummaryConceptNMS.png'
+edited_image_path = '../backend/uploads/summary_tree.png'
 image.save(edited_image_path)
-image.show()
 edited_image_path
